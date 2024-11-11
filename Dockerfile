@@ -1,17 +1,6 @@
-# Usa una imagen oficial de Python
-FROM python:3.9-slim
-
-# Establece el directorio de trabajo
+FROM golang:1.16
 WORKDIR /app
-
-# Copia los archivos del proyecto
-COPY . .
-
-# Instala las dependencias
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Expón el puerto 5000
-EXPOSE 5000
-
-# Ejecuta la aplicación
-CMD ["python", "app.py"]
+COPY main.go .
+COPY go.mod .
+RUN go build -o main .
+CMD ["/app/main"]
